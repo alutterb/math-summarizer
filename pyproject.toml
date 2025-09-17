@@ -1,0 +1,65 @@
+[tool.poetry]
+name = "math-summarizer"
+version = "1.0.0"
+description = "A simple tool to chunk and summarize math textbooks using Hugging Face models"
+authors = ["Your Name <your.email@example.com>"]
+readme = "README.md"
+packages = [{include = "math_summarizer", from = "src"}]
+
+[tool.poetry.dependencies]
+python = ">=3.9,<3.12"
+llama-index = "^0.10.0"
+llama-index-llms-huggingface = "^0.1.0"
+llama-index-llms-groq = "^0.1.0"  # Groq API integration
+llama-index-llms-together = "^0.1.0"  # Together AI integration
+llama-index-llms-anthropic = "^0.1.0"  # Anthropic Claude integration
+huggingface-hub = "^0.20.3"  # For Inference API
+requests = "^2.31.0"
+python-dotenv = "^1.0.0"
+click = "^8.1.0"
+rich = "^13.0.0"
+pydantic = "^2.0.0"
+pydantic-settings = "^2.0.0"
+tokenizers = "^0.15.0"  # For tokenization
+markdown = "^3.5.0"
+regex = "^2023.0.0"
+
+# Optional: Only needed for LOCAL execution
+transformers = {version = "^4.35.0", optional = true}
+torch = {version = "^2.1.0", optional = true}
+accelerate = {version = "^0.24.0", optional = true}
+bitsandbytes = {version = "^0.41.0", optional = true}
+sentencepiece = {version = "^0.1.99", optional = true}
+protobuf = {version = "^4.25.0", optional = true}
+
+[tool.poetry.extras]
+local = ["transformers", "torch", "accelerate", "bitsandbytes", "sentencepiece", "protobuf"]
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.0"
+black = "^23.0.0"
+isort = "^5.12.0"
+flake8 = "^6.0.0"
+mypy = "^1.5.0"
+pre-commit = "^3.4.0"
+
+[tool.poetry.scripts]
+math-summarizer = "math_summarizer.main:cli"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 88
+target-version = ['py39']
+
+[tool.isort]
+profile = "black"
+line_length = 88
+
+[tool.mypy]
+python_version = "3.9"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
