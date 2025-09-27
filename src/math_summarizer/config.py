@@ -31,10 +31,6 @@ class Config(BaseSettings):
     anthropic_api_key: Optional[str] = Field(default=None, env="ANTHROPIC_API_KEY")
     anthropic_model: str = Field(default="claude-3-haiku-20240307", env="ANTHROPIC_MODEL")
     
-    # LaTeX Cleanup Agent Configuration (separate lightweight model)
-    latex_cleanup_provider: str = Field(default="groq", env="LATEX_CLEANUP_PROVIDER")
-    latex_cleanup_model: str = Field(default="llama-3.1-8b-instant", env="LATEX_CLEANUP_MODEL")
-    latex_cleanup_api_key: Optional[str] = Field(default=None, env="LATEX_CLEANUP_API_KEY")  # Falls back to main provider key if not set
     
     # Execution Mode: "api" for remote APIs, "local" for local execution
     execution_mode: str = Field(default="api", env="EXECUTION_MODE")

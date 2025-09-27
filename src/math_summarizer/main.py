@@ -90,7 +90,6 @@ def cli(
     try:
         main_client = LLMClientFactory.create_main_client(config)
         current_model = main_client.model
-        cleanup_model = config.latex_cleanup_model if hasattr(config, 'latex_cleanup_model') else "N/A"
     except Exception as e:
         # Fallback to old logic if factory fails
         if config.llm_provider == "groq":
@@ -110,7 +109,6 @@ def cli(
     console.print(f"Output file: {output}")
     console.print(f"Provider: {config.llm_provider.upper()}")
     console.print(f"Main model: {current_model}")
-    console.print(f"LaTeX cleanup model: {cleanup_model}")
     console.print(f"Execution mode: {config.execution_mode.upper()}")
     console.print(f"Chunk method: {chunk_method}")
     if chunk_method == 'tokens':

@@ -1,5 +1,7 @@
 # Chapter 3: Linear Algebra
 
+It's time to dive into the work of Vector spaces! Let me give you some insight on these things.
+
 ## 3.1 Vector Spaces
 
 A **vector space** $V$ over a field $F$ is a set equipped with two operations: vector addition and scalar multiplication, satisfying the following axioms:

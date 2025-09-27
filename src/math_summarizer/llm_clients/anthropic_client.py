@@ -12,23 +12,33 @@ class AnthropicClient(BaseLLMClient):
     def _initialize_client(self) -> None:
         """Initialize the Anthropic client."""
         try:
-            from llama_index.llms.anthropic import Anthropic
+            import anthropic
             
-            self._client = Anthropic(
-                model=self.model,
+            
+            self._client = anthropic.Anthropic(
                 api_key=self.api_key,
-                temperature=self.temperature,
-                max_tokens=self.max_tokens,
+                timeout=self.timeout
             )
             logger.info(f"Anthropic client initialized with model: {self.model}")
             
         except ImportError:
-            raise ImportError("llama-index-llms-anthropic is required for Anthropic support. Install with: pip install llama-index-llms-anthropic")
+            raise ImportError("anthropic is required for Anthropic support. Install with: pip install anthropic")
         except Exception as e:
             logger.error(f"Failed to initialize Anthropic client: {str(e)}")
             raise
     
     def _generate_text(self, prompt: str) -> str:
         """Generate text using Anthropic API."""
-        response = self._client.complete(prompt)
-        return response.text
+        try:
+            response = self._client.messages.create(
+                model=self.model,
+                max_tokens=self.max_tokens,
+                temperature=self.temperature,
+                messages=[
+                    {"role": "user", "content": prompt}
+                ]
+            )
+            return response.content[0].text
+        except Exception as e:
+            logger.error(f"Error generating text with Anthropic: {str(e)}")
+            raise
